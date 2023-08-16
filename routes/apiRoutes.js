@@ -1,11 +1,12 @@
+// setting up required dependencies
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-
+// initializing express router
 const router = express.Router();
-
+// database file path
 const dbFilePath = path.join(__dirname, '../db/db.json');
-
+// getting notes from database
 router.get('/notes', (req, res) => {
     fs.readFile(dbFilePath, 'utf8', (err, notes) => {
         if (err) {
@@ -14,7 +15,7 @@ router.get('/notes', (req, res) => {
         res.json(JSON.parse(notes));
     });
 });
-
+// posting new notes to database
 router.post('/notes', (req, res) => {
     fs.readFile(dbFilePath, 'utf8', (err, notes) => {
         if (err) {
@@ -33,7 +34,7 @@ router.post('/notes', (req, res) => {
         });
     });
 });
-
+// deleting notes from database
 router.delete('/notes/:id', (req, res) => {
     fs.readFile(dbFilePath, 'utf8', (err, notes) => {
         if (err) {
@@ -51,5 +52,5 @@ router.delete('/notes/:id', (req, res) => {
         });
     });
 });
-
+// exporting router
 module.exports = router;
